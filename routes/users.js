@@ -5,12 +5,13 @@ router.get("/users", (req, res) => {
   res.send(usersData);
 });
 
-router.get("/users/:id", (req, res) => {
-  const userId = req.params.id;
-  const user = usersData[userId];
+router.get("/users/:_id", (req, res) => {
+  const { _id } = req.params;
+
+  const user = usersData.find((user) => user._id === _id);
 
   if (!user) {
-    res.status(404).send("Usuario no encontrado");
+    res.send({ error: `Este usuario no existe` });
     return;
   }
   res.send(user);

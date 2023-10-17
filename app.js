@@ -6,7 +6,10 @@ const usersRouter = require("./routes/users");
 
 const { PORT = 3000 } = process.env;
 
-app.use("/", usersRouter);
+app.use("/users", usersRouter);
+app.use("/", (req, res) => {
+  res.send(`<h1>Error 404<h1>`);
+});
 // app.use("/card", cardRouter);
 
 app.listen(PORT, () => {
