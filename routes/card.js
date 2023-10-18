@@ -1,17 +1,25 @@
-// const router = require("express").Router();
-// const fs = require("fs");
-// const path = require("path");
+const router = require("express").Router();
+const fs = require("fs");
+const path = require("path");
 
-// const cardData = path.join(__dirname, "card.json");
+const cardData = path.join(__dirname, "../data/card.json");
 
-// router.get("/", (req, res) => {
-//   fs.readFile(cardData, { encoding: "utf8" }, (err, data) => {
-//     if (!data) {
-//       res.status(404).send("Tarjeta no encontrado");
-//       return;
-//     }
-//     res.send(data);
-//   });
-// });
+router.get("/", (req, res) => {
+  const cardReader = fs.createReadStream(cardData, { encoding: "utf8" });
 
-// module.exports = router;
+  cardReader.on("error", (err) => {
+    console.error("Error al leer el archivo:", err);
+    res.status(500).send("Ha ocurrido un error, intente de nuevo más tarde");
+  });
+
+  cardReader.on("open", () => {
+    res.setHeader("Content-Type", "application/json");
+    cardReader.pipe(res);
+  });
+
+  cardReader.on("end", () => {
+    cardReader.close();
+  });
+});
+
+module.exports = router;
