@@ -15,16 +15,18 @@ router.get("/", (req, res) => {
   });
 });
 
-// router.get("/:id", (req, res) => {
-//   const { id } = req.params;
-
-//   const user = usersData.find((user) => user._id === id);
-
-//   if (!user) {
-//     res.send({ error: `Este usuario no existe` });
-//     return;
-//   }
-//   res.send(user);
-// });
+router.get("/:id", (req, res) => {
+  fs.readFile(userPath, { encoding: "utf8" }, (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo:", err);
+      res.status(404).send("Usuario no encontrado, intente de nuevo más tarde");
+      return;
+    }
+    const { id } = req.params;
+    const users = JSON.parse(data);
+    const user = users.find((user) => user._id === id);
+    res.send(user);
+  });
+});
 
 module.exports = router;
