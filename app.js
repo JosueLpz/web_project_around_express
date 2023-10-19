@@ -8,9 +8,9 @@ const { PORT = 3000 } = process.env;
 
 app.use("/users", usersRouter);
 app.use("/card", cardRouter);
-// app.use("/", (req, res) => {
-//   res.send(`<h1>Error 404<h1>`);
-// });
+app.use("/", (req, res) => {
+  res.send(`<h1>Error 404<h1>`);
+});
 
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
