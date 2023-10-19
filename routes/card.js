@@ -1,17 +1,31 @@
-// const router = require("express").Router();
-// const fs = require("fs");
-// const path = require("path");
+const router = require("express").Router();
+const fs = require("fs");
+const path = require("path");
 
-// const cardData = path.join(__dirname, "card.json");
+const cardPath = path.join(__dirname, "../data/card.json");
 
-// router.get("/", (req, res) => {
-//   fs.readFile(cardData, { encoding: "utf8" }, (err, data) => {
-//     if (!data) {
-//       res.status(404).send("Tarjeta no encontrado");
-//       return;
-//     }
-//     res.send(data);
-//   });
-// });
+router.get("/", (req, res) => {
+  res.writeHead(200, {
+    "Content-Type": "application/json",
+  });
+  const cardReader = fs.createReadStream(cardPath, { encoding: "utf8" });
 
-// module.exports = router;
+  cardReader.pipe(res);
+});
+
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  const rawData = fs.readFileSync(cardPath, { encoding: "utf8" });
+  const cards = JSON.parse(rawData);
+
+  const cardId = cards.find((card) => card._id === id);
+
+  if (cardId) {
+    res.status(200).send(cardId);
+  } else {
+    res.status(404).send({ message: "Carta no Encontrada" });
+  }
+});
+
+module.exports = router;
