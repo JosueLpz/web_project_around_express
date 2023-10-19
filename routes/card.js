@@ -22,9 +22,9 @@ router.get("/:id", (req, res) => {
   const cardId = cards.find((card) => card._id === id);
 
   if (cardId) {
-    res.status(200).json(cardId);
+    res.status(200).send(cardId);
   } else {
-    res.status(404).json({ message: "Card not found" });
+    res.status(404).send({ message: "Carta no Encontrada" });
   }
 });
 
