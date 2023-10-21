@@ -8,9 +8,9 @@ const cardRouter = require("./routes/card");
 const { PORT = 3000 } = process.env;
 
 app.use("/users", usersRouter);
-app.use("/card", cardRouter);
+app.use("/cards", cardRouter);
 app.use("/", (req, res) => {
-  res.send(`
+  res.status(404).send(`
   <style>
 .title{
   display: flex;
