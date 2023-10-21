@@ -4,6 +4,11 @@ const path = require("path");
 
 const cardPath = path.join(__dirname, "../data/card.json");
 
+const fileReadError = (err, res, defaultMessage, statusCode) => {
+  console.error("Error al leer el archivo:", err);
+  res.status(statusCode).send(defaultMessage);
+};
+
 router.get("/", (req, res) => {
   res.writeHead(200, {
     "Content-Type": "application/json",
@@ -24,7 +29,13 @@ router.get("/:id", (req, res) => {
   if (cardId) {
     res.status(200).send(cardId);
   } else {
-    res.status(404).send({ message: "Carta no Encontrada" });
+    fileReadError(
+      err,
+      res,
+      "Carta no encontrada, intente de nuevo más tarde",
+      404
+    );
+    return;
   }
 });
 
