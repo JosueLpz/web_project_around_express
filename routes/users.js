@@ -1,22 +1,22 @@
-const router = require("express").Router();
-const fs = require("fs");
-const path = require("path");
+const router = require('express').Router();
+const fs = require('fs');
+const path = require('path');
 
-const userPath = path.join(__dirname, "../data/users.json");
+const userPath = path.join(__dirname, '../data/users.json');
 
 const fileReadError = (err, res, defaultMessage, statusCode) => {
-  console.error("Error al leer el archivo:", err);
+  console.error('Error al leer el archivo:', err);
   res.status(statusCode).send(defaultMessage);
 };
 
-router.get("/", (req, res) => {
-  fs.readFile(userPath, { encoding: "utf8" }, (err, data) => {
+router.get('/', (req, res) => {
+  fs.readFile(userPath, { encoding: 'utf8' }, (err, data) => {
     if (err) {
       fileReadError(
         err,
         res,
-        "Ha ocurrido un error, intente de nuevo más tarde",
-        500
+        'Ha ocurrido un error, intente de nuevo más tarde',
+        500,
       );
       return;
     }
@@ -24,14 +24,14 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
-  fs.readFile(userPath, { encoding: "utf8" }, (err, data) => {
+router.get('/:id', (req, res) => {
+  fs.readFile(userPath, { encoding: 'utf8' }, (err, data) => {
     if (err) {
       fileReadError(
         err,
         res,
-        "Usuario no encontrado, intente de nuevo más tarde",
-        404
+        'Usuario no encontrado, intente de nuevo más tarde',
+        404,
       );
       return;
     }
