@@ -1,18 +1,16 @@
-const express = require('express');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const mongoose = require('mongoose');
+const { PORT = 3000, BASE_PATH } = process.env;
 
 const app = express();
+mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
-mongoose.connect('mongodb://localhost:27017/aroundb');
+const usersRouter = require("./routes/user");
+// const cardRouter = require("./routes/card");
 
-const usersRouter = require('./routes/users');
-const cardRouter = require('./routes/card');
-
-const { PORT = 3000 } = process.env;
-
-app.use('/users', usersRouter);
-app.use('/cards', cardRouter);
+app.use("/users", usersRouter);
+// app.use("/cards", cardRouter);
 
 app.use((req, res, next) => {
   res.status(404).send(`
@@ -31,7 +29,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).json({ error: 'Ocurrió un error interno en el servidor' });
+  res.status(500).json({ error: "Ocurrió un error interno en el servidor" });
 });
 
 app.listen(PORT, () => {
