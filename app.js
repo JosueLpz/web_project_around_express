@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const makup = require("./utils/utils");
+const makup = require("./utils/makup");
 
 const { PORT = 3000 } = process.env;
 const app = express();
