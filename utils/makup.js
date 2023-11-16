@@ -1,4 +1,4 @@
-const market = `
+const makup = `
 <style>
   .title {
     display: flex;
@@ -11,4 +11,4 @@ const market = `
 <h1 class="title">Error 404</h1>
 `;
 
-module.exports = market;
+module.exports = makup;
