@@ -10,6 +10,8 @@ module.exports.getCard = (req, res) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
     .catch((err) => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };
 
 module.exports.postCard = (req, res) => {
@@ -26,6 +28,8 @@ module.exports.postCard = (req, res) => {
     .catch((err) => {
       camelCase(res, ERROR_CODE_500);
     });
+
+  return null;
 };
 
 module.exports.deleteCard = (req, res) => {
@@ -37,6 +41,8 @@ module.exports.deleteCard = (req, res) => {
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };
 
 module.exports.likeCard = (req, res) =>

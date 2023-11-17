@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "El enlace al avatar es obligatorio"],
     validate: {
-      validator: function (v) {
+      validator (v) {
         const regex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
         return regex.test(v);
       },

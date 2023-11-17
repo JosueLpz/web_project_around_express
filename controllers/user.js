@@ -10,6 +10,8 @@ module.exports.getUser = (req, res) => {
   User.find({})
     .then((user) => res.send({ data: user }))
     .catch((err) => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };
 
 module.exports.getUserId = (req, res) => {
@@ -21,6 +23,8 @@ module.exports.getUserId = (req, res) => {
     })
     .then((user) => res.send({ data: user }))
     .catch((err) => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };
 
 module.exports.postUser = (req, res) => {
@@ -35,6 +39,8 @@ module.exports.postUser = (req, res) => {
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
     .catch(() => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };
 
 module.exports.patchUser = (req, res) => {
@@ -48,6 +54,8 @@ module.exports.patchUser = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { name, about })
     .then((user) => res.send({ data: user }))
     .catch((err) => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };
 
 module.exports.patchUserAvatar = (req, res) => {
@@ -70,4 +78,6 @@ module.exports.patchUserAvatar = (req, res) => {
   )
     .then((avatar) => res.send({ data: avatar }))
     .catch((err) => camelCase(res, ERROR_CODE_500));
+
+  return null;
 };

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const {Schema} = mongoose;
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -12,7 +13,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: [true, "El enlace de las tarjetas es obligatorio"],
     validate: {
-      validator: function (v) {
+      validator (v) {
         const regex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
         return regex.test(v);
       },
