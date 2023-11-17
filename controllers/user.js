@@ -3,13 +3,13 @@ const {
   ERROR_CODE_400,
   ERROR_CODE_404,
   ERROR_CODE_500,
-  error_code,
-} = require("../utils/error");
+  camelCase,
+} = require("../utils/camelCase");
 
 module.exports.getUser = (req, res) => {
   User.find({})
     .then((user) => res.send({ data: user }))
-    .catch((err) => error_code(ERROR_CODE_500));
+    .catch((err) => camelCase(res, ERROR_CODE_500));
 };
 
 module.exports.getUserId = (req, res) => {
@@ -20,7 +20,7 @@ module.exports.getUserId = (req, res) => {
       throw error;
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) => error_code(ERROR_CODE_500));
+    .catch((err) => camelCase(res, ERROR_CODE_500));
 };
 
 module.exports.postUser = (req, res) => {
@@ -34,7 +34,7 @@ module.exports.postUser = (req, res) => {
 
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
-    .catch(() => error_code(ERROR_CODE_500));
+    .catch(() => camelCase(res, ERROR_CODE_500));
 };
 
 module.exports.patchUser = (req, res) => {
@@ -47,7 +47,7 @@ module.exports.patchUser = (req, res) => {
 
   User.findByIdAndUpdate(req.user._id, { name, about })
     .then((user) => res.send({ data: user }))
-    .catch((err) => error_code(ERROR_CODE_500));
+    .catch((err) => camelCase(res, ERROR_CODE_500));
 };
 
 module.exports.patchUserAvatar = (req, res) => {
@@ -69,5 +69,5 @@ module.exports.patchUserAvatar = (req, res) => {
     }
   )
     .then((avatar) => res.send({ data: avatar }))
-    .catch((err) => error_code(ERROR_CODE_500));
+    .catch((err) => camelCase(res, ERROR_CODE_500));
 };

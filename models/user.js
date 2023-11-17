@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
 
-// // const validateE =
-//   /^(http|https):\/\/(www\.)?[a-zA-Z0-9-._~:/?%#[]@!$&'()*+,;=]*(#)?$/;
-
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,14 +16,13 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: [true, "El enlace al avatar es obligatorio"],
-    // validate: {
-    //   validator: function (v) {
-    //     return /^(http|https):\/\/(www\.)?[a-zA-Z0-9-._~:/?%#[]@!$&'()*+,;=]+(#)?$/.test(
-    //       v
-    //     );
-    //   },
-    //   message: (props) => `${props.value} no es un enlace de avatar válido`,
-    // },
+    validate: {
+      validator: function (v) {
+        const regex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+        return regex.test(v);
+      },
+      message: (props) => `${props.value} no es un enlace de avatar válido`,
+    },
   },
 });
 

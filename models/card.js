@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// const validateE =
-//   /^(http|https):\/\/(www\.)?[a-zA-Z0-9-._~:/?%#[]@!$&'()*+,;=]*(#)?$/;
-
 const cardSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -14,12 +11,13 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: [true, "El enlace de las tarjetas es obligatorio"],
-    // validate: {
-    //   validator: function (v) {
-    //     return validateE.test(v);
-    //   },
-    //   message: (props) => `${props.value} no es un enlace de válido`,
-    // },
+    validate: {
+      validator: function (v) {
+        const regex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+        return regex.test(v);
+      },
+      message: (props) => `${props.value} no es un enlace de válido`,
+    },
   },
   owner: {
     required: [true, "El Id es obligatorio"],

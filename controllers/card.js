@@ -3,13 +3,13 @@ const {
   ERROR_CODE_400,
   ERROR_CODE_404,
   ERROR_CODE_500,
-  error_code,
-} = require("../utils/error");
+  camelCase,
+} = require("../utils/camelCase");
 
 module.exports.getCard = (req, res) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
-    .catch((err) => error_code(ERROR_CODE_500));
+    .catch((err) => camelCase(res, ERROR_CODE_500));
 };
 
 module.exports.postCard = (req, res) => {
@@ -24,7 +24,7 @@ module.exports.postCard = (req, res) => {
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      error_code(ERROR_CODE_500);
+      camelCase(res, ERROR_CODE_500);
     });
 };
 
@@ -36,7 +36,7 @@ module.exports.deleteCard = (req, res) => {
       throw error;
     })
     .then((card) => res.send({ data: card }))
-    .catch((err) => error_code(ERROR_CODE_500));
+    .catch((err) => camelCase(res, ERROR_CODE_500));
 };
 
 module.exports.likeCard = (req, res) =>
